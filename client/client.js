@@ -31,4 +31,4 @@ client.on('connect', function(connection) {
     sendNumber();
 });
 
-client.connect('ws://localhost:3000/', 'echo-protocol');
+client.connect('ws://localhost:3000/fart', 'echo-protocol');
