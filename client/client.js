@@ -1,7 +1,14 @@
 module.exports = username => {
-  var WebSocketClient = require("websocket").client;
+  const readline = require("readline");
 
-  var client = new WebSocketClient();
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  const WebSocketClient = require("websocket").client;
+
+  const client = new WebSocketClient();
 
   client.on("connectFailed", function(error) {
     console.log("Connect Error: " + error.toString());
@@ -21,14 +28,9 @@ module.exports = username => {
       }
     });
 
-    function sendNumber() {
-      if (connection.connected) {
-        var number = Math.round(Math.random() * 0xffffff);
-        connection.sendUTF(number.toString());
-        setTimeout(sendNumber, 1000);
-      }
-    }
-    sendNumber();
+    rl.on("line", input => {
+      connection.sendUTF(input);
+    });
   });
 
   client.connect("ws://localhost:3000/" + username, "echo-protocol");
