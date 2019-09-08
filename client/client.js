@@ -33,9 +33,9 @@ module.exports = (me, friend) => {
 
     rl.on("line", input => {
       connection.sendUTF(friend + ":" + input);
-    //   console.log("me:");
+    //   process.stdout.write("me: ");
     });
-    // console.log("me:");
+    // process.stdout.write("me: ");
   });
 
   client.connect("ws://localhost:3000/" + me, "echo-protocol");
