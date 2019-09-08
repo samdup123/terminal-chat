@@ -10,8 +10,10 @@ app.get('/', function(req, res, next){
 app.ws('/', function(ws, req) {
   ws.on('message', function(msg) {
     console.log(msg);
+    ws.send('hey');
   });
   console.log('socket', req.testing);
+
 });
  
 app.listen(3000);
