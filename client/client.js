@@ -15,21 +15,21 @@ module.exports = (me, friend) => {
   });
 
   client.on("connect", function(connection) {
-    console.log("WebSocket Client Connected");
+    console.log("Begin chatting with " + friend);
 
     connection.on("error", function(error) {
       console.log("Connection Error: " + error.toString());
     });
 
     connection.on("close", function() {
-      console.log("echo-protocol Connection Closed");
+      console.log("Connection closed :(");
     });
 
     connection.on("message", function(message) {
       if (message.type === "utf8") {
-        if (message.utf8Data == "ack" || message.utf8Data == "nack") {
-          console.log(message.utf8Data);
-        } else {
+        if (message.utf8Data == "nack") {
+          console.log('\tNotReceived');
+        } else if (message.utf8Data != "ack"){
           console.log(friend + ": " + message.utf8Data);
         }
       }
@@ -37,9 +37,7 @@ module.exports = (me, friend) => {
 
     rl.on("line", input => {
       connection.sendUTF(friend + ":" + input);
-      //   process.stdout.write("me: ");
     });
-    // process.stdout.write("me: ");
   });
 
   client.connect("ws://localhost:3000/" + me, "echo-protocol");
