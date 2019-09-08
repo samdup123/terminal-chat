@@ -11,19 +11,28 @@ app.get("/", function(req, res, next) {
 
 app.ws("/:username", function(ws, req) {
   console.log("new chatter ", req.params.username);
-  
+
   if (!users.includes(req.params.username)) {
     users[req.params.username] = ws;
   }
 
   ws.on("message", function(msg) {
-    console.log(msg);
     const contents = msg.split(":");
     const recipient = contents[0];
     const text = contents[1];
 
-    // ws.send("hey");
-    users[recipient].send(text);
+    console.log(msg);
+
+    if (users[recipient]) {
+      users[recipient].send(text);
+      ws.send("ack");
+    } else {
+      ws.send("nack");
+    }
+  });
+
+  ws.on("close", function() {
+    users[req.params.username] = null;
   });
 });
 

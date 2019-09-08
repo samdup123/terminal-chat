@@ -27,13 +27,17 @@ module.exports = (me, friend) => {
 
     connection.on("message", function(message) {
       if (message.type === "utf8") {
-        console.log(friend + ": " + message.utf8Data);
+        if (message.utf8Data == "ack" || message.utf8Data == "nack") {
+          console.log(message.utf8Data);
+        } else {
+          console.log(friend + ": " + message.utf8Data);
+        }
       }
     });
 
     rl.on("line", input => {
       connection.sendUTF(friend + ":" + input);
-    //   process.stdout.write("me: ");
+      //   process.stdout.write("me: ");
     });
     // process.stdout.write("me: ");
   });
