@@ -1,0 +1,28 @@
+{
+  "name": "sam-homework",
+  "version": "1.0.0",
+  "description": "hey",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geappliances/sw-a-course-2019-2020.node-js-submission-duplessis.git"
+  },
+  "author": "Sam DuPlessis",
+  "license": "ISC",
+  "bin": {
+    "chat": "bin/chat"
+  },
+  "bugs": {
+    "url": "https://github.com/geappliances/sw-a-course-2019-2020.node-js-submission-duplessis/issues"
+  },
+  "homepage": "https://github.com/geappliances/sw-a-course-2019-2020.node-js-submission-duplessis#readme",
+  "devDependencies": {
+    "jest": "24.9.0"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0"
+  }
+}
