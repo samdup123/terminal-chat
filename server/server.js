@@ -21,7 +21,7 @@ app.ws("/:username", function(ws, req) {
     const text = contents[1];
 
     // ws.send("hey");
-    users[recipient].send(text);
+    users[recipient].send(req.params.username + ":" + text);
   });
 });
 

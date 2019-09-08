@@ -27,7 +27,7 @@ module.exports = username => {
 
     connection.on("message", function(message) {
       if (message.type === "utf8") {
-        console.log("Received: '" + message.utf8Data + "'");
+        console.log(message.utf8Data);
       }
     });
 
