@@ -1,4 +1,4 @@
-module.exports = username => {
+module.exports = (me, friend) => {
   const readline = require("readline");
 
   const rl = readline.createInterface({
@@ -27,14 +27,16 @@ module.exports = username => {
 
     connection.on("message", function(message) {
       if (message.type === "utf8") {
-        console.log(message.utf8Data);
+        console.log(friend + ": " + message.utf8Data);
       }
     });
 
     rl.on("line", input => {
-      connection.sendUTF(input);
+      connection.sendUTF(friend + ":" + input);
+    //   console.log("me:");
     });
+    // console.log("me:");
   });
 
-  client.connect("ws://localhost:3000/" + username, "echo-protocol");
+  client.connect("ws://localhost:3000/" + me, "echo-protocol");
 };
