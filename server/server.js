@@ -11,13 +11,17 @@ app.get("/", function(req, res, next) {
 
 app.ws("/:username", function(ws, req) {
   if (!users.includes(req.params.username)) {
-    users.unshift(req.params.username);
-    console.log(users);
+    users[req.params.username] = ws;
   }
 
   ws.on("message", function(msg) {
     console.log(msg);
-    ws.send("hey");
+    const contents = msg.split(':')
+    const recipient = contents[0];
+    const text = contents[1];
+
+    // ws.send("hey");
+    users[recipient].send(text);
   });
 });
 
